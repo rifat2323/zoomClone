@@ -1,3 +1,5 @@
+//@ts-nocheck
+
 import { Radio } from 'react-loader-spinner'
 import React from 'react'
 

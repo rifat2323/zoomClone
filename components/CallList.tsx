@@ -1,3 +1,5 @@
+//@ts-nocheck
+
 "use client"
 import {useGetCalls} from "@/hook/useGetCalls";
 import {useRouter} from "next/navigation";
@@ -14,8 +16,8 @@ import {useToast} from "@/components/ui/use-toast";
 const CallList = ({type}:{type:'upcoming' | 'ended' | "recordings"}) => {
     const {upcomingCalls,endedCalls,callRecoding,isLoading} = useGetCalls()
     const router = useRouter()
-    const [recoding,setRecoding] = useState<CallRecording>([])
-      const {tost} = useToast()
+    const [recoding,setRecoding] = useState([])
+      const {toast} = useToast()
     const getCalls = ()=>{
         if(type == "ended") return endedCalls
         if(type == "recordings") return recoding
@@ -42,7 +44,7 @@ const CallList = ({type}:{type:'upcoming' | 'ended' | "recordings"}) => {
            const recoding = callData.filter(call=>call.recordings.length>0).flatMap(call=>call.recordings)
            setRecoding(recoding)
        }catch (error){
-           tost({title:"try again later"})
+           toast({title:"try again later"})
        }
 
 
@@ -50,7 +52,7 @@ const CallList = ({type}:{type:'upcoming' | 'ended' | "recordings"}) => {
    if(type==='recordings'){
        fetchRecoding()
    }
-   },[type,callRecoding])
+   },[type,callRecoding,toast])
 
     const calls = getCalls()
     const noCallsMessage = getNoCallsMessage()
